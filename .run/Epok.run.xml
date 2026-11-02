@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Epok (8081)" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="se.ltu.grupp10.epok.EpokApplication" />
+    <module name="epok-service" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

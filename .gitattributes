@@ -1,0 +1,6 @@
+# Consistent line endings across Windows and macOS, so diffs only show real changes
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.png binary
+*.jpg binary

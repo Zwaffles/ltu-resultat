@@ -1,0 +1,21 @@
+# Maven
+target/
+
+# IntelliJ (shared run configurations in .run/ ARE committed)
+.idea/
+*.iml
+out/
+
+# Other IDEs
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local secrets and environment files
+.env
+*.local.properties

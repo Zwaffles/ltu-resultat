@@ -1,0 +1,22 @@
+### Run in IntelliJ: click the green arrow next to each request.
+### Role B collects the real test requests in this folder (one .http file per system).
+
+### Epok
+GET http://localhost:8081/epok/health
+Accept: application/json
+
+### StudentITS
+GET http://localhost:8082/studentits/health
+Accept: application/json
+
+### Ladok
+GET http://localhost:8083/ladok/health
+Accept: application/json
+
+### Canvas
+GET http://localhost:8084/canvas/health
+Accept: application/json
+
+### Canvas -> Epok, StudentITS, Ladok (checks that Canvas can reach the others)
+GET http://localhost:8084/canvas/systemstatus
+Accept: application/json

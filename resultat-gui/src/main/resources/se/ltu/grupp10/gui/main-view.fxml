@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+
+<!-- Empty starting view. Role D builds the GUI here (e.g. in Scene Builder). -->
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="se.ltu.grupp10.gui.MainController">
+</BorderPane>

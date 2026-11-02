@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Alla tjänster" type="CompoundRunConfigurationType">
+    <toRun name="Epok (8081)" type="Application" />
+    <toRun name="StudentITS (8082)" type="Application" />
+    <toRun name="Ladok (8083)" type="Application" />
+    <toRun name="Canvas (8084)" type="Application" />
+    <method v="2" />
+  </configuration>
+</component>

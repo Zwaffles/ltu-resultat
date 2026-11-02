@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>se.ltu.grupp10</groupId>
+        <artifactId>ltu-resultat</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>resultat-gui</artifactId>
+    <name>resultat-gui</name>
+    <description>Resultat Canvas GUI: JavaFX client that only talks to the systems over REST</description>
+
+    <!--
+        Note: NO Spring, JPA or database dependencies here. The GUI is a pure
+        REST client (java.net.http.HttpClient) and must never access a database directly.
+    -->
+    <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <!--
+            JSON parsing for the client classes (role D adds when needed).
+            Jackson 2 is used here since the GUI is not a Spring application.
+            If Maven reports a missing version, add an explicit <version> tag:
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Start the GUI with: mvn -pl resultat-gui javafx:run -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${javafx.maven.plugin.version}</version>
+                <configuration>
+                    <mainClass>se.ltu.grupp10.gui.ResultatApp</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
