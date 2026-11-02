@@ -27,14 +27,6 @@ En prototyp för processen *Registrera studieresultat*: fyra fristående REST-we
 4. Välj **Resultat GUI** och klicka Run. Ett tomt fönster ska öppnas.
 5. Öppna `http/health.http` och kör anropen för att testa tjänsterna direkt.
 
-### Från kommandoraden
-
-```bash
-mvn clean install                         # bygg allt och kör testerna
-mvn -pl epok-service spring-boot:run      # starta en tjänst
-mvn -pl resultat-gui javafx:run           # starta gränssnittet
-```
-
 ## Projektstruktur
 
 ```
@@ -57,7 +49,7 @@ Varje tjänst har samma paketindelning:
 
 Tjänsterna har avsiktligt **ingen delad kodmodul**. Varje system ska vara fristående och bara kommunicera via sitt REST-gränssnitt, även om det innebär att små DTO-klasser finns i flera moduler.
 
-## Spelregler
+## Regler
 
 - **Gränssnittet pratar bara HTTP.** Inga JPA-, Spring- eller databasberoenden i `resultat-gui`.
 - **Tjänsterna pratar bara HTTP med varandra.** Canvas anropar Epok, StudentITS och Ladok via `RestClient` (se `canvas-service/.../client/TjansteKlienter.java`), aldrig via deras databaser.
