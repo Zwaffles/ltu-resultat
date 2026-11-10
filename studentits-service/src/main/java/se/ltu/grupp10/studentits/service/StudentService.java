@@ -6,6 +6,13 @@ import org.springframework.web.server.ResponseStatusException;
 import se.ltu.grupp10.studentits.repository.StudentKalla;
 import se.ltu.grupp10.studentits.web.PersonnummerDto;
 
+/*
+StudentService innehåller StudentITS affärslogik för get_Persnummer.
+Metoden hamtaPersonnummer slår upp användarnamnet via StudentKalla och bygger ett PersonnummerDto om användaren finns.
+Saknas användaren kastas ett ResponseStatusException med status 404.
+Klassen får sitt beroende av StudentKalla via konstruktorn, vilket gör den lätt att testa med Mockito.
+ */
+
 @Service
 public class StudentService {
 
