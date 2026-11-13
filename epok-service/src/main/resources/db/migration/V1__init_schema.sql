@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS student (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS course (
+    id SERIAL PRIMARY KEY,
+    course_code VARCHAR(20) UNIQUE NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    credits NUMERIC(4,2) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS result (
+    id SERIAL PRIMARY KEY,
+    student_id INT REFERENCES student(id) ON DELETE CASCADE,
+    course_id INT REFERENCES course(id) ON DELETE CASCADE,
+    grade VARCHAR(5) NOT NULL,
+    examination_date DATE NOT NULL
+);
