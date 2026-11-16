@@ -1,0 +1,4 @@
+CREATE DATABASE epok_db;
+CREATE DATABASE ladok_db;
+CREATE DATABASE canvas_db;
+CREATE DATABASE studentits_db;
