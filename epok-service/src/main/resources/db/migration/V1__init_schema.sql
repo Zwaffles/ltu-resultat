@@ -1,0 +1,7 @@
+CREATE TABLE modules (
+    id BIGSERIAL PRIMARY KEY,
+    kurskod VARCHAR(20) NOT NULL,
+    modulkod VARCHAR(20) NOT NULL,
+    benamning VARCHAR(255) NOT NULL,
+    hp DOUBLE PRECISION NOT NULL
+);

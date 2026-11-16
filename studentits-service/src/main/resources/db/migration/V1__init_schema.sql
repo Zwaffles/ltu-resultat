@@ -1,0 +1,7 @@
+CREATE TABLE student_accounts (
+    id BIGSERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    personnummer VARCHAR(20) NOT NULL UNIQUE,
+    active BOOLEAN NOT NULL
+);
