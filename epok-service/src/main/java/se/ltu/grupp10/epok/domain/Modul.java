@@ -12,6 +12,8 @@ public class Modul {
 
     private String kurskod;
     private String modulkod;
+    private String benamning;   // e.g. "Inlämningsuppgift"
+    private Double hp;          // e.g. 3.0
     private boolean aktiv;
 
     public Modul() {}
@@ -24,6 +26,12 @@ public class Modul {
 
     public String getModulkod() { return modulkod; }
     public void setModulkod(String modulkod) { this.modulkod = modulkod; }
+
+    public String getBenamning() { return benamning; }
+    public void setBenamning(String benamning) { this.benamning = benamning; }
+
+    public Double getHp() { return hp; }
+    public void setHp(Double hp) { this.hp = hp; }
 
     public boolean isAktiv() { return aktiv; }
     public void setAktiv(boolean aktiv) { this.aktiv = aktiv; }
