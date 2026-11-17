@@ -14,10 +14,15 @@ public class Grade {
     private String personnummer;
     private String kurskod;
     private String grade;
+    
+    @Column(name = "examination_date")
     private LocalDate examinationDate;
+
+    private String modulkod;
 
     public Grade() {}
 
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -32,4 +37,7 @@ public class Grade {
 
     public LocalDate getExaminationDate() { return examinationDate; }
     public void setExaminationDate(LocalDate examinationDate) { this.examinationDate = examinationDate; }
+
+    public String getModulkod() { return modulkod; }
+    public void setModulkod(String modulkod) { this.modulkod = modulkod; }
 }
