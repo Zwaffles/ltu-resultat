@@ -19,10 +19,9 @@ public class JpaModulKalla implements ModulKalla {
         return repo.existsByKurskod(kurskod);
     }
 
-    // TODO: Filtrera på aktiv när kolumnen är tillagd.
     @Override
     public List<ModulDto> aktivaModuler(String kurskod) {
-        return repo.findByKurskodOrderByModulkod(kurskod).stream()
+        return repo.findByKurskodAndAktivTrueOrderByModulkod(kurskod).stream()
                 .map(m -> new ModulDto(m.getModulkod(), m.getBenamning(),
                         BigDecimal.valueOf(m.getHp())))
                 .toList();

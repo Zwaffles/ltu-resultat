@@ -6,5 +6,5 @@ import se.ltu.grupp10.epok.domain.Modul;
 
 public interface ModulRepository extends JpaRepository<Modul, Long> {
     boolean existsByKurskod(String kurskod);
-    List<Modul> findByKurskodOrderByModulkod(String kurskod);
+    List<Modul> findByKurskodAndAktivTrueOrderByModulkod(String kurskod);
 }
