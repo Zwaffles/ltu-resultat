@@ -1,0 +1,11 @@
+### Canvas: assignments for D0031N
+GET http://localhost:8084/canvas/kurser/D0031N/uppgifter
+Accept: application/json
+
+### Lowercase course code also works
+GET http://localhost:8084/canvas/kurser/d0031n/uppgifter
+Accept: application/json
+
+### Unknown course gives an empty list
+GET http://localhost:8084/canvas/kurser/X9999X/uppgifter
+Accept: application/json
