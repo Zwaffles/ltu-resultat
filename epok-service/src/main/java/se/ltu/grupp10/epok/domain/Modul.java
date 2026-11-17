@@ -5,20 +5,17 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "modules")
 public class Modul {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private String kurskod;     // e.g., "D0031N"
-    private String modulkod;    // e.g., "0005"
-    private String benamning;   // e.g., "Inlämningsuppgift"
-    private Double hp;          // e.g., 3.0
 
-    // Default constructor required by JPA
+    private String kurskod;
+    private String modulkod;
+    private boolean aktiv;
+
     public Modul() {}
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -28,9 +25,6 @@ public class Modul {
     public String getModulkod() { return modulkod; }
     public void setModulkod(String modulkod) { this.modulkod = modulkod; }
 
-    public String getBenamning() { return benamning; }
-    public void setBenamning(String benamning) { this.benamning = benamning; }
-
-    public Double getHp() { return hp; }
-    public void setHp(Double hp) { this.hp = hp; }
+    public boolean isAktiv() { return aktiv; }
+    public void setAktiv(boolean aktiv) { this.aktiv = aktiv; }
 }
