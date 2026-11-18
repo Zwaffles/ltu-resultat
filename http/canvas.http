@@ -1,3 +1,7 @@
+### Canvas: all courses that have assignments
+GET http://localhost:8084/canvas/kurser
+Accept: application/json
+
 ### Canvas: assignments for D0031N
 GET http://localhost:8084/canvas/kurser/D0031N/uppgifter
 Accept: application/json
