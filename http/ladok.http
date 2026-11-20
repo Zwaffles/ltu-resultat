@@ -1,0 +1,125 @@
+### 0. Hälsokontroll (200)
+GET http://localhost:8083/ladok/health
+
+### 1. Lyckad registrering (201)
+POST http://localhost:8083/ladok/resultat
+Content-Type: application/json
+
+{
+  "personnummer": "20020105-7890",
+  "kurskod": "D0031N",
+  "modul": "0005",
+  "datum": "2026-11-10",
+  "betyg": "VG"
+}
+
+### 2. Samma igen: redan registrerat (422)
+POST http://localhost:8083/ladok/resultat
+Content-Type: application/json
+
+{
+  "personnummer": "20020105-7890",
+  "kurskod": "D0031N",
+  "modul": "0005",
+  "datum": "2026-11-10",
+  "betyg": "VG"
+}
+
+### 3. Redan registrerat i testdatan, modul 0001 (422)
+POST http://localhost:8083/ladok/resultat
+Content-Type: application/json
+
+{
+  "personnummer": "19990512-1234",
+  "kurskod": "D0031N",
+  "modul": "0001",
+  "datum": "2026-11-10",
+  "betyg": "G"
+}
+
+### 4. Student ej registrerad på kursen (422)
+POST http://localhost:8083/ladok/resultat
+Content-Type: application/json
+
+{
+  "personnummer": "20030414-2345",
+  "kurskod": "D0031N",
+  "modul": "0005",
+  "datum": "2026-11-10",
+  "betyg": "VG"
+}
+
+### 5. Inaktiv modul, D0031N 0003 (422)
+POST http://localhost:8083/ladok/resultat
+Content-Type: application/json
+
+{
+  "personnummer": "19990512-1234",
+  "kurskod": "D0031N",
+  "modul": "0003",
+  "datum": "2026-11-10",
+  "betyg": "VG"
+}
+
+### 6. Modul som inte finns (422)
+POST http://localhost:8083/ladok/resultat
+Content-Type: application/json
+
+{
+  "personnummer": "19990512-1234",
+  "kurskod": "D0031N",
+  "modul": "9999",
+  "datum": "2026-11-10",
+  "betyg": "VG"
+}
+
+### 7. Ogiltigt betyg (422)
+POST http://localhost:8083/ladok/resultat
+Content-Type: application/json
+
+{
+  "personnummer": "19990512-1234",
+  "kurskod": "D0031N",
+  "modul": "0005",
+  "datum": "2026-11-10",
+  "betyg": "4"
+}
+
+### 8. Framtida datum (422)
+POST http://localhost:8083/ladok/resultat
+Content-Type: application/json
+
+{
+  "personnummer": "19990512-1234",
+  "kurskod": "D0031N",
+  "modul": "0005",
+  "datum": "2030-01-01",
+  "betyg": "VG"
+}
+
+### 9. Saknade fält (400)
+POST http://localhost:8083/ladok/resultat
+Content-Type: application/json
+
+{
+  "personnummer": "19990512-1234",
+  "kurskod": "D0031N"
+}
+
+### 10. Fel datumformat (400)
+POST http://localhost:8083/ladok/resultat
+Content-Type: application/json
+
+{
+  "personnummer": "19990512-1234",
+  "kurskod": "D0031N",
+  "modul": "0005",
+  "datum": "10/11/2026",
+  "betyg": "VG"
+}
+
+### 11. Lista resultat för D0031N modul 0001 (200, fyra resultat)
+GET http://localhost:8083/ladok/resultat?kurskod=D0031N&modul=0001
+
+### 12. Lista resultat för D0031N modul 0005 (200, ett resultat efter anrop 1)
+GET http://localhost:8083/ladok/resultat?kurskod=D0031N&modul=0005
