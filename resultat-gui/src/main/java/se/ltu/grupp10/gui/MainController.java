@@ -8,9 +8,7 @@ import se.ltu.grupp10.gui.model.Modul;
 import se.ltu.grupp10.gui.model.StudentRad;
 import java.util.List;
 import java.io.IOException;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
-import se.ltu.grupp10.gui.data.LokalaUppgifter;
 import se.ltu.grupp10.gui.data.LokalaStudenter;
 import se.ltu.grupp10.gui.data.LokalaModuler;
 import javafx.collections.FXCollections;
@@ -22,20 +20,29 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import se.ltu.grupp10.gui.data.LokalRegistrering;
+import se.ltu.grupp10.gui.model.Kurs;
+import javafx.concurrent.Task;
+import se.ltu.grupp10.gui.client.CanvasKlient;
+import java.net.URI;
+import javafx.scene.control.Button;
+import se.ltu.grupp10.gui.model.Uppgift;
 
 /** Controller for main-view.fxml. Role D builds the GUI logic here. */
 public class MainController {
 
     private String hamtadKurskod;
-    private final LokalaUppgifter lokalaUppgifter = new LokalaUppgifter();
+    private final CanvasKlient canvasKlient =
+            new CanvasKlient(URI.create("http://localhost:8084"));
     private final LokalaStudenter lokalaStudenter = new LokalaStudenter();
     private final LokalaModuler lokalaModuler = new LokalaModuler();
     private final LokalRegistrering lokalRegistrering = new LokalRegistrering();
 
     @FXML
-    private TextField kurskodFalt;
+    private ComboBox<Kurs> kursVal;
     @FXML
-    private ComboBox<String> uppgiftVal;
+    private Button hamtaUppgifterKnapp;
+    @FXML
+    private ComboBox<Uppgift> uppgiftVal;
     @FXML
     private ComboBox<Modul> modulVal;
     @FXML
@@ -57,6 +64,15 @@ public class MainController {
 
     @FXML
     private void initialize() {
+
+        hamtaUppgifterKnapp.disableProperty().bind(
+                kursVal.valueProperty().isNull().or(kursVal.disabledProperty())
+        );
+
+        kursVal.valueProperty().addListener(
+                (egenskap, tidigareKurs, nyKurs) -> rensaKursdata()
+        );
+
         studentKolumn.setCellValueFactory(cell ->
                 new ReadOnlyStringWrapper(cell.getValue().namn()));
         canvasOmdomeKolumn.setCellValueFactory(cell ->
@@ -90,35 +106,27 @@ public class MainController {
         } catch (IOException ex) {
             System.err.println("Kunde inte läsa betyg: " + ex.getMessage());
         }
+
+        hamtaKurser();
     }
 
-    @FXML
-    private void hamtaUppgifter() {
-        String kurskod = kurskodFalt.getText().trim();
+    private void rensaKursdata() {
+        hamtadKurskod = null;
 
         uppgiftVal.setValue(null);
+        uppgiftVal.getItems().clear();
+        uppgiftVal.setPromptText("Välj uppgift");
+
         studentTabell.getItems().clear();
-        hamtadKurskod = kurskod;
-        hamtaModuler(kurskod);
 
-        try {
-            List<String> uppgifter = lokalaUppgifter.forKurs(kurskod);
-            uppgiftVal.getItems().setAll(uppgifter);
-
-            if (uppgifter.isEmpty()) {
-                uppgiftVal.setPromptText("Inga träffar");
-            } else {
-                uppgiftVal.setPromptText("Välj uppgift");
-            }
-        } catch (IOException ex) {
-            uppgiftVal.getItems().clear();
-            uppgiftVal.setPromptText("Kunde inte läsa uppgifterna");
-        }
+        modulVal.setValue(null);
+        modulVal.getItems().clear();
+        modulVal.setPromptText("Välj modul");
     }
 
     @FXML
     private void visaStudenter() {
-        String uppgift = uppgiftVal.getValue();
+        Uppgift uppgift = uppgiftVal.getValue();
         studentTabell.getItems().clear();
 
         if (uppgift == null) {
@@ -126,11 +134,102 @@ public class MainController {
         }
 
         try {
-            List<StudentRad> studenter = lokalaStudenter.forUppgift(hamtadKurskod, uppgift);
+            List<StudentRad> studenter = lokalaStudenter.forUppgift(
+                    hamtadKurskod, uppgift.namn());
             studentTabell.getItems().setAll(studenter);
         } catch (IOException ex) {
             System.err.println("Kunde inte läsa studenter: " + ex.getMessage());
         }
+    }
+
+    private void hamtaKurser() {
+        kursVal.setDisable(true);
+        kursVal.setPromptText("Hämtar kurser");
+
+        Task<List<Kurs>> hamtning = new Task<>() {
+            @Override
+            protected List<Kurs> call() throws IOException, InterruptedException {
+                return canvasKlient.hamtaKurser();
+            }
+        };
+
+        hamtning.setOnSucceeded(event -> {
+            List<Kurs> kurser = hamtning.getValue();
+            kursVal.getItems().setAll(kurser);
+            kursVal.setDisable(false);
+
+            if (kurser.isEmpty()) {
+                kursVal.setPromptText("Inga kurser");
+            } else {
+                kursVal.setPromptText("Välj kurs");
+            }
+        });
+
+        hamtning.setOnFailed(event -> {
+            kursVal.setDisable(false);
+            kursVal.setPromptText("Läsfel");
+            hamtning.getException().printStackTrace();
+
+            new Alert(Alert.AlertType.ERROR,
+                    "Kunde inte hämta kurser. Kontrollera att Canvas körs.")
+                    .showAndWait();
+        });
+
+        Thread trad = new Thread(hamtning, "canvas-kurser");
+        trad.setDaemon(true);
+        trad.start();
+    }
+
+    @FXML
+    private void hamtaUppgifter() {
+        Kurs kurs = kursVal.getValue();
+
+        if (kurs == null) {
+            new Alert(Alert.AlertType.INFORMATION, "Välj en kurs först.").showAndWait();
+            return;
+        }
+
+        rensaKursdata();
+        kursVal.setDisable(true);
+        uppgiftVal.setDisable(true);
+        uppgiftVal.setPromptText("Hämtar...");
+
+        Task<List<Uppgift>> hamtning = new Task<>() {
+            @Override
+            protected List<Uppgift> call() throws IOException, InterruptedException {
+                return canvasKlient.hamtaUppgifter(kurs.kurskod());
+            }
+        };
+
+        hamtning.setOnSucceeded(event -> {
+            List<Uppgift> uppgifter = hamtning.getValue();
+            hamtadKurskod = kurs.kurskod();
+            uppgiftVal.getItems().setAll(uppgifter);
+            uppgiftVal.setDisable(false);
+            kursVal.setDisable(false);
+
+            if (uppgifter.isEmpty()) {
+                uppgiftVal.setPromptText("Inga träffar");
+            } else {
+                uppgiftVal.setPromptText("Välj uppgift");
+            }
+
+            hamtaModuler(kurs.kurskod());
+        });
+
+        hamtning.setOnFailed(event -> {
+            kursVal.setDisable(false);
+            uppgiftVal.setDisable(false);
+            uppgiftVal.setPromptText("Läsfel");
+            hamtning.getException().printStackTrace();
+
+            new Alert(Alert.AlertType.ERROR,
+                    "Kunde inte hämta uppgifter från Canvas.").showAndWait();
+        });
+
+        Thread trad = new Thread(hamtning, "canvas-uppgifter");
+        trad.setDaemon(true);
+        trad.start();
     }
 
     private void hamtaModuler(String kurskod) {
@@ -180,9 +279,9 @@ public class MainController {
     }
     @FXML
     private void skickaMarkerade() {
-        String kurskod = kurskodFalt.getText().trim();
+        Kurs kurs = kursVal.getValue();
 
-        if (!kurskod.equalsIgnoreCase(hamtadKurskod)) {
+        if (kurs == null || !kurs.kurskod().equalsIgnoreCase(hamtadKurskod)) {
             new Alert(Alert.AlertType.INFORMATION,
                     "Klicka på Hämta uppgifter för den aktuella kurskoden.").showAndWait();
             return;

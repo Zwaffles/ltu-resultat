@@ -30,16 +30,10 @@
             <version>${javafx.version}</version>
         </dependency>
 
-        <!--
-            JSON parsing for the client classes (role D adds when needed).
-            Jackson 2 is used here since the GUI is not a Spring application.
-            If Maven reports a missing version, add an explicit <version> tag:
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-        -->
     </dependencies>
 
     <build>

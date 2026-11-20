@@ -10,8 +10,8 @@
       <VBox prefHeight="280.0" prefWidth="158.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Kurskod" />
-            <TextField fx:id="kurskodFalt" promptText="D0031N" />
-            <Button mnemonicParsing="false" onAction="#hamtaUppgifter" prefHeight="26.0" prefWidth="104.0" text="Hämta uppgifter" />
+            <ComboBox fx:id="kursVal" prefWidth="150.0" promptText="Välj kurs" />
+            <Button fx:id="hamtaUppgifterKnapp" mnemonicParsing="false" onAction="#hamtaUppgifter" prefHeight="26.0" prefWidth="104.0" text="Hämta uppgifter" />
             <Label text="Uppgift i Canvas" />
             <ComboBox fx:id="uppgiftVal" onAction="#visaStudenter" prefWidth="150.0" promptText="Välj uppgift" />
             <Label text="Modul i Ladok" />
