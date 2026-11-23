@@ -13,3 +13,15 @@ Accept: application/json
 ### Unknown course gives an empty list
 GET http://localhost:8084/canvas/kurser/X9999X/uppgifter
 Accept: application/json
+
+### Canvas: students on assignment 1 in D0031N
+GET http://localhost:8084/canvas/kurser/D0031N/uppgifter/1/studenter
+Accept: application/json
+
+### Assignment that doesn't exist gives 404
+GET http://localhost:8084/canvas/kurser/D0031N/uppgifter/999/studenter
+Accept: application/json
+
+### Assignment in another course gives 404
+GET http://localhost:8084/canvas/kurser/D0024E/uppgifter/1/studenter
+Accept: application/json
