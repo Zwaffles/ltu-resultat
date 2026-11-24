@@ -1,0 +1,17 @@
+### 0. Hälsokontroll (200)
+GET http://localhost:8081/epok/health
+
+### 1. D0031N: tre aktiva moduler, 0003 är dold (200)
+GET http://localhost:8081/epok/kurser/D0031N/moduler
+
+### 2. D0024E (200, tre moduler)
+GET http://localhost:8081/epok/kurser/D0024E/moduler
+
+### 3. I0015N (200, tre moduler)
+GET http://localhost:8081/epok/kurser/I0015N/moduler
+
+### 4. M0047M (200, en modul)
+GET http://localhost:8081/epok/kurser/M0047M/moduler
+
+### 5. Okänd kurs (404)
+GET http://localhost:8081/epok/kurser/XXXX/moduler
