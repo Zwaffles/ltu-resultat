@@ -14,8 +14,8 @@ public class JpaStudentKalla implements StudentKalla {
     }
 
     @Override
-    public Optional<String> hittaPersonnummer(String anvandarnamn) {
-        return repo.findByUsername(anvandarnamn)
-                .map(StudentAccount::getPersonnummer);
+    public Optional<StudentAccount> hittaKonto(String anvandarnamn) {
+        return repo.findByUsername(anvandarnamn);
     }
-}
+
+    }
