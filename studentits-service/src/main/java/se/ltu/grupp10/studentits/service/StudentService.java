@@ -23,9 +23,9 @@ public class StudentService {
     }
 
     public PersonnummerDto hamtaPersonnummer(String anvandarnamn) {
-        return kalla.hittaPersonnummer(anvandarnamn)
-                .map(p -> new PersonnummerDto(anvandarnamn, p))
+        return kalla.hittaKonto(anvandarnamn)
+                .map(a -> new PersonnummerDto(a.getUsername(), a.getPersonnummer(), a.isActive()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Användaren finns inte: " + anvandarnamn));
     }
-}
+    }
