@@ -13,3 +13,47 @@ Accept: application/json
 ### Unknown course gives an empty list
 GET http://localhost:8084/canvas/kurser/X9999X/uppgifter
 Accept: application/json
+
+### Canvas: students on assignment 1 in D0031N
+GET http://localhost:8084/canvas/kurser/D0031N/uppgifter/1/studenter
+Accept: application/json
+
+### Assignment that doesn't exist gives 404
+GET http://localhost:8084/canvas/kurser/D0031N/uppgifter/999/studenter
+Accept: application/json
+
+### Assignment in another course gives 404
+GET http://localhost:8084/canvas/kurser/D0024E/uppgifter/1/studenter
+Accept: application/json
+
+### Canvas: reg_Student_Resultat, one row per demo case
+POST http://localhost:8084/canvas/kurser/D0031N/registrering
+Content-Type: application/json
+
+{
+  "modul": "0005",
+  "rader": [
+    { "anvandarnamn": "oscnil-6", "datum": "2026-11-20", "betyg": "G" },
+    { "anvandarnamn": "majols-7", "datum": "2026-11-20", "betyg": "VG" },
+    { "anvandarnamn": "vikpet-8", "datum": "2026-11-20", "betyg": "G" },
+    { "anvandarnamn": "sarlin-5", "datum": "2026-11-20", "betyg": "G" },
+    { "anvandarnamn": "okand-10", "datum": "2026-11-20", "betyg": "G" }
+  ]
+}
+
+### Request without rows gives 400
+POST http://localhost:8084/canvas/kurser/D0031N/registrering
+Content-Type: application/json
+
+{ "modul": "0005", "rader": [] }
+
+### Happy path: registered on D0031N, no result on 0005 yet
+POST http://localhost:8084/canvas/kurser/D0031N/registrering
+Content-Type: application/json
+
+{
+  "modul": "0005",
+  "rader": [
+    { "anvandarnamn": "johjoh-2", "datum": "2026-11-20", "betyg": "G" }
+  ]
+}

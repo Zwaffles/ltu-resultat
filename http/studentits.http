@@ -1,0 +1,11 @@
+### Känd användare (200)
+GET http://localhost:8082/studentits/studenter/annand-1/personnummer
+
+### Annan känd användare (200)
+GET http://localhost:8082/studentits/studenter/johjoh-2/personnummer
+
+### Inaktivt konto (200, lämnar fortfarande ut personnummer)
+GET http://localhost:8082/studentits/studenter/vikpet-8/personnummer
+
+### Okänd användare (404)
+GET http://localhost:8082/studentits/studenter/finns-inte/personnummer
