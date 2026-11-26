@@ -4,6 +4,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
+
 import se.ltu.grupp10.gui.model.StudentRad;
 
 public class LadokBetygCell extends TableCell<StudentRad, String> {
