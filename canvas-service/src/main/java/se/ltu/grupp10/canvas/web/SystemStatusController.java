@@ -11,12 +11,6 @@ import org.springframework.web.client.RestClientException;
 
 /**
  * GET /canvas/systemstatus checks that Canvas can reach Epok, StudentITS and Ladok.
- *
- * Example response:
- * {"Canvas":"UP","Epok":"UP","StudentITS":"UP","Ladok":"NOT REACHABLE"}
- *
- * Useful on integration day: if this works, the service-to-service calls
- * in reg_Student_Resultat have a working path.
  */
 @RestController
 public class SystemStatusController {
