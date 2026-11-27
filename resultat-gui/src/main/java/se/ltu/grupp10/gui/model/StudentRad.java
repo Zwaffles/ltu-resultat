@@ -1,15 +1,17 @@
 package se.ltu.grupp10.gui.model;
 
+import java.time.LocalDate;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import java.time.LocalDate;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 
 public class StudentRad {
 
+    private final String anvandarnamn;
     private final String namn;
     private final String canvasOmdome;
     private final StringProperty ladokBetyg = new SimpleStringProperty();
@@ -17,7 +19,8 @@ public class StudentRad {
     private final BooleanProperty markerad = new SimpleBooleanProperty(false);
     private final StringProperty registreringsstatus = new SimpleStringProperty();
 
-    public StudentRad(String namn, String canvasOmdome) {
+    public StudentRad(String anvandarnamn, String namn, String canvasOmdome) {
+        this.anvandarnamn = anvandarnamn;
         this.namn = namn;
         this.canvasOmdome = canvasOmdome;
 
@@ -25,6 +28,10 @@ public class StudentRad {
                 registreringsstatus.set(null));
         examinationsdatum.addListener((egenskap, gammaltDatum, nyttDatum) ->
                 registreringsstatus.set(null));
+    }
+
+    public String anvandarnamn() {
+        return anvandarnamn;
     }
 
     public String namn() {
@@ -35,8 +42,6 @@ public class StudentRad {
         return canvasOmdome;
     }
 
-
-
     public StringProperty ladokBetygProperty() {
         return ladokBetyg;
     }
@@ -44,9 +49,11 @@ public class StudentRad {
     public ObjectProperty<LocalDate> examinationsdatumProperty() {
         return examinationsdatum;
     }
+
     public BooleanProperty markeradProperty() {
         return markerad;
     }
+
     public StringProperty registreringsstatusProperty() {
         return registreringsstatus;
     }

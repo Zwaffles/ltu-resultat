@@ -3,15 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<!-- Empty starting view. Role D builds the GUI here (e.g. in Scene Builder). -->
+<!-- Resultatvyn. Layouten kan redigeras i Scene Builder. -->
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.ltu.grupp10.gui.MainController">
    <left>
       <VBox prefHeight="280.0" prefWidth="158.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Kurskod" />
-            <TextField fx:id="kurskodFalt" promptText="D0031N" />
-            <Button mnemonicParsing="false" onAction="#hamtaUppgifter" prefHeight="26.0" prefWidth="104.0" text="Hämta uppgifter" />
+            <ComboBox fx:id="kursVal" prefWidth="150.0" promptText="Välj kurs" />
+            <Button fx:id="hamtaUppgifterKnapp" mnemonicParsing="false" onAction="#hamtaUppgifter" prefHeight="26.0" prefWidth="104.0" text="Hämta uppgifter" />
             <Label text="Uppgift i Canvas" />
             <ComboBox fx:id="uppgiftVal" onAction="#visaStudenter" prefWidth="150.0" promptText="Välj uppgift" />
             <Label text="Modul i Ladok" />
@@ -20,30 +20,28 @@
       </VBox>
    </left>
    <center>
-      <TableView fx:id="studentTabell" prefHeight="289.0" prefWidth="594.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="studentTabell" prefHeight="289.0" prefWidth="872.0" BorderPane.alignment="CENTER">
         <columns>
             <TableColumn fx:id="markeradKolumn" prefWidth="75.0" text="Markera" />
-          <TableColumn fx:id="studentKolumn" prefWidth="74.0" text="Student" />
-          <TableColumn fx:id="canvasOmdomeKolumn" prefWidth="106.0" text="Canvas-omdöme" />
-            <TableColumn fx:id="ladokBetygKolumn" prefWidth="95.0" text="Betyg i Ladok" />
-            <TableColumn fx:id="examinationsdatumKolumn" prefWidth="120.0" text="Examinationsdatum" />
-            <TableColumn fx:id="statusKolumn" prefWidth="150.0" text="Status" />
+          <TableColumn fx:id="studentKolumn" prefWidth="108.0" text="Student" />
+          <TableColumn fx:id="canvasOmdomeKolumn" prefWidth="117.0" text="Canvas-omdöme" />
+            <TableColumn fx:id="ladokBetygKolumn" prefWidth="85.0" text="Betyg i Ladok" />
+            <TableColumn fx:id="examinationsdatumKolumn" prefWidth="137.0" text="Examinationsdatum" />
+            <TableColumn fx:id="statusKolumn" prefWidth="322.0" text="Status" />
         </columns>
       </TableView>
    </center>
-   <top>
-      <HBox fx:id="markeraAlla" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-             <Button mnemonicParsing="false" onAction="#markeraAlla" text="Markera alla" />
-            <DatePicker fx:id="gemensamtDatum" promptText="Välj datum" />
-             <Button mnemonicParsing="false" onAction="#sattDatum" text="Sätt datum" />
-         </children>
-      </HBox>
-   </top>
    <bottom>
       <HBox prefHeight="40.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <children>
-             <Button mnemonicParsing="false" onAction="#skickaMarkerade" text="Skicka markerade" />
+            <HBox fx:id="markeraAlla" prefHeight="40.0" prefWidth="564.0" spacing="8.0" HBox.hgrow="ALWAYS">
+               <children>
+                   <Button mnemonicParsing="false" onAction="#markeraAlla" prefHeight="25.0" prefWidth="84.0" text="Markera alla" />
+                  <DatePicker fx:id="gemensamtDatum" promptText="Välj datum" />
+                   <Button mnemonicParsing="false" onAction="#sattDatum" text="Sätt datum" />
+               </children>
+            </HBox>
+             <Button fx:id="skickaMarkeradeKnapp" lineSpacing="8.0" mnemonicParsing="false" onAction="#skickaMarkerade" text="Skicka markerade" />
          </children>
       </HBox>
    </bottom>
