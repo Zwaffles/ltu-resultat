@@ -13,7 +13,6 @@ import se.ltu.grupp10.gui.client.CanvasKlient;
 import se.ltu.grupp10.gui.client.EpokKlient;
 import se.ltu.grupp10.gui.config.GuiKonfiguration;
 
-/** Resultat Canvas GUI: the teacher's view for reporting results to Ladok. */
 public class ResultatApp extends Application {
 
     @Override

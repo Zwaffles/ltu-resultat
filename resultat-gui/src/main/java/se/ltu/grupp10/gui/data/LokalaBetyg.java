@@ -20,7 +20,7 @@ public class LokalaBetyg {
 
         try (BufferedReader lasare = new BufferedReader(
                 new InputStreamReader(fil, StandardCharsets.UTF_8))) {
-            lasare.readLine(); // Hoppa över rubrikraden.
+            lasare.readLine();
 
             String rad;
             while ((rad = lasare.readLine()) != null) {

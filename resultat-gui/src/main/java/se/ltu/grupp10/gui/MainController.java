@@ -40,7 +40,6 @@ import se.ltu.grupp10.gui.model.Student;
 import se.ltu.grupp10.gui.model.StudentRad;
 import se.ltu.grupp10.gui.model.Uppgift;
 
-/** Kopplar gränssnittet till Canvas och Epok via HTTP. */
 public class MainController {
 
     private final CanvasKlient canvasKlient;
