@@ -1,5 +1,5 @@
 ### Run in IntelliJ: click the green arrow next to each request.
-### Role B collects the real test requests in this folder (one .http file per system).
+### Health checks for all four systems.
 
 ### Epok
 GET http://localhost:8081/epok/health
