@@ -1,3 +1,6 @@
+### 0. Hälsokontroll (200)
+GET http://localhost:8082/studentits/health
+
 ### Känd användare (200)
 GET http://localhost:8082/studentits/studenter/annand-1/personnummer
 
